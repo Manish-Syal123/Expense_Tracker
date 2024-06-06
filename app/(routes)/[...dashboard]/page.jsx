@@ -1,6 +1,5 @@
 import React from "react";
 import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/nextjs";
-import Dashboard from "@/app/_components/Dashboard";
 import { auth } from "@clerk/nextjs/server";
 const page = () => {
   const { userId } = auth();
@@ -13,7 +12,7 @@ const page = () => {
           <RedirectToSignIn />
         </SignedOut>
       ) : (
-        <Dashboard />
+        <div>Dashboard</div>
       )}
     </div>
   );
