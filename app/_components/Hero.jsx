@@ -1,7 +1,10 @@
-import Image from "next/image";
+"use client";
 import React from "react";
+import Image from "next/image";
+import { useUser } from "@clerk/nextjs";
 
 const Hero = () => {
+  const { user, isSignedIn } = useUser();
   return (
     <section className="bg-gray-50 flex items-center flex-col">
       <div className="mx-auto max-w-screen-xl px-4 py-32 lg:flex">
@@ -19,12 +22,21 @@ const Hero = () => {
           </p>
 
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <a
-              className="block w-full rounded bg-primary px-12 py-3 text-lg font-medium text-white shadow hover:bg-blue-700 focus:outline-none focus:ring active:bg-blue-500 sm:w-auto"
-              href="#"
-            >
-              Get Started
-            </a>
+            {isSignedIn ? (
+              <a
+                className="block w-full rounded bg-primary px-12 py-3 text-lg font-medium text-white shadow hover:bg-blue-700 focus:outline-none focus:ring active:bg-blue-500 sm:w-auto"
+                href="/dashboard"
+              >
+                Get Started
+              </a>
+            ) : (
+              <a
+                className="block w-full rounded bg-primary px-12 py-3 text-lg font-medium text-white shadow hover:bg-blue-700 focus:outline-none focus:ring active:bg-blue-500 sm:w-auto"
+                href="/sign-in"
+              >
+                Get Started
+              </a>
+            )}
           </div>
         </div>
       </div>
