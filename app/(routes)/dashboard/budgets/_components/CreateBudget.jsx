@@ -18,7 +18,7 @@ import { useUser } from "@clerk/nextjs";
 import { toast } from "sonner";
 import { db } from "@/utils/dbConfig";
 
-const CreateBudget = () => {
+const CreateBudget = ({ refreshData }) => {
   const [emojiIcon, setEmojiIcon] = useState("😊");
   const [openEmojiPicker, setOpenEmojiPicker] = useState(false);
 
@@ -41,6 +41,7 @@ const CreateBudget = () => {
       .returning({ insertedId: Budgets.id }); //once the user is inserted into the database this will return it's ID
 
     if (result) {
+      refreshData();
       toast("New Budget Created! 🎉");
     }
   };
