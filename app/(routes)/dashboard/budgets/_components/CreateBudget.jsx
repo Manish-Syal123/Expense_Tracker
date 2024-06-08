@@ -29,7 +29,7 @@ const CreateBudget = ({ refreshData }) => {
 
   // Used to create New Budget
   const onCreateBudget = async () => {
-    console.log("craete budget clicked");
+    // console.log("craete budget clicked");
     const result = await db
       .insert(Budgets)
       .values({
@@ -50,7 +50,7 @@ const CreateBudget = ({ refreshData }) => {
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <div className="bg-slate-100 p-10 rounded-md items-center flex flex-col border-2 border-black border-dashed cursor-pointer hover:shadow-md">
+          <div className="bg-slate-100 p-10 py-[13%] rounded-md items-center flex flex-col border-2 border-black border-dashed cursor-pointer hover:shadow-md">
             <h2 className="text-3xl">+</h2>
             <h2 className=" lg:text-xl md:text-xs md:font-medium">
               Create New Budget
