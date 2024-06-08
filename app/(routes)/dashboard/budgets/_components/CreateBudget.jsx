@@ -69,7 +69,7 @@ const CreateBudget = () => {
                 >
                   {emojiIcon}
                 </Button>
-                <div className="absolute">
+                <div className="absolute z-10">
                   <EmojiPicker
                     open={openEmojiPicker}
                     onEmojiClick={(e) => {
