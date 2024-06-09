@@ -1,7 +1,7 @@
 import { db } from "@/utils/dbConfig";
 import { Expenses } from "@/utils/schema";
 import { eq } from "drizzle-orm";
-import { Trash } from "lucide-react";
+import { Rabbit, Trash } from "lucide-react";
 import React from "react";
 import { toast } from "sonner";
 
@@ -25,19 +25,27 @@ const ExpenseListTable = ({ expensesList, refreshData }) => {
         <h2>Date</h2>
         <h2>Action</h2>
       </div>
-      {expensesList.map((expenses, index) => (
-        <div className="grid grid-cols-4 bg-slate-50 p-2">
-          <h2>{expenses.name}</h2>
-          <h2>{expenses.amount}</h2>
-          <h2>{expenses.createdAt}</h2>
-          <h2>
-            <Trash
-              onClick={() => deleteExpense(expenses)}
-              className="text-red-600 cursor-pointer"
-            />
-          </h2>
+      {expensesList?.length > 0 ? (
+        expensesList.map((expenses, index) => (
+          <div className="grid grid-cols-4 bg-slate-50 p-2">
+            <h2>{expenses.name}</h2>
+            <h2>{expenses.amount}</h2>
+            <h2>{expenses.createdAt}</h2>
+            <h2>
+              <Trash
+                onClick={() => deleteExpense(expenses)}
+                className="text-red-600 cursor-pointer"
+              />
+            </h2>
+          </div>
+        ))
+      ) : (
+        <div className="flex flex-col items-center mt-10">
+          <Rabbit size={150} />
+
+          <h2 className="font-bold text-xl">No Expense Found! </h2>
         </div>
-      ))}
+      )}
     </div>
   );
 };
