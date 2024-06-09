@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
     <ClerkProvider>
       <html lang="en">
         <body className={outfit.className}>
-          <Toaster />
+          <Toaster richColors />
           {children}
         </body>
       </html>
