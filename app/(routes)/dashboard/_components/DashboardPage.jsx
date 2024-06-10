@@ -6,9 +6,12 @@ import { db } from "@/utils/dbConfig";
 import { desc, eq, getTableColumns, sql } from "drizzle-orm";
 import { Budgets, Expenses } from "@/utils/schema";
 import BarChartDashboard from "./BarChartDashboard";
+import BudgetItem from "../budgets/_components/BudgetItem";
+import ExpenseListTable from "../expenses/_components/ExpenseListTable";
 
 const DashboardPage = () => {
   const [budgetList, setBudgetList] = useState([]);
+  const [expensesList, setExpenseslist] = useState([]);
   const { user } = useUser();
   useEffect(() => {
     user && getBudgetList();
@@ -29,7 +32,25 @@ const DashboardPage = () => {
       .orderBy(desc(Budgets.id));
 
     setBudgetList(result);
+    // console.log(result);
+    getAllExpenses();
+  };
 
+  // Getting all the expenses of the current logged In user
+  const getAllExpenses = async () => {
+    const result = await db
+      .select({
+        id: Expenses.id,
+        name: Expenses.name,
+        amount: Expenses.amount,
+        createdAt: Expenses.createdAt,
+      })
+      .from(Budgets)
+      .rightJoin(Expenses, eq(Budgets.id, Expenses.budgetId))
+      .where(eq(Budgets.createdBy, user?.primaryEmailAddress?.emailAddress))
+      .orderBy(desc(Expenses.id));
+
+    setExpenseslist(result);
     // console.log(result);
   };
   return (
@@ -47,11 +68,21 @@ const DashboardPage = () => {
 
       <CardInfo budgetList={budgetList} />
 
-      <div className="grid grid-cols-1 md:grid-cols-3  mt-6">
+      <div className="grid grid-cols-1 md:grid-cols-3  mt-6 gap-5">
         <div className="md:col-span-2">
           <BarChartDashboard budgetList={budgetList} />
+
+          <ExpenseListTable
+            expensesList={expensesList}
+            refreshData={() => getBudgetList()}
+          />
         </div>
-        <div>Other Content</div>
+        <div className="grid gap-5">
+          <h2 className="font-bold text-lg">Latest Budgets</h2>
+          {budgetList.map((budget, index) => (
+            <BudgetItem budget={budget} key={index} />
+          ))}
+        </div>
       </div>
     </div>
   );
