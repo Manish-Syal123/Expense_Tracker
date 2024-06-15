@@ -32,6 +32,23 @@ export default function DashboardLayout({ children }) {
       router.replace("/dashboard/budgets");
     }
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 1024) {
+        setExpanded(false);
+      } else {
+        setExpanded(true);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Call the function initially to set the state based on the initial window size
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <div>
       {/* <ClerkProvider> */}
