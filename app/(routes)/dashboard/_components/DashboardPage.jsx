@@ -55,13 +55,7 @@ const DashboardPage = () => {
   };
   return (
     <div className="p-8">
-      <h2 className="font-bold text-3xl">
-        Hii,
-        <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
-          {user?.fullName}
-        </span>
-        ✌
-      </h2>
+      <h2 className="font-bold text-3xl">Dashboard</h2>
       <p className="text-gray-500">
         Hear's what happening with your Money!, Let's manage your Expense
       </p>
