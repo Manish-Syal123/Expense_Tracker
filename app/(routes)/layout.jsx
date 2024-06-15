@@ -11,10 +11,11 @@ import DashboardHeader from "./dashboard/_components/DashboardHeader";
 import { db } from "@/utils/dbConfig";
 import { Budgets } from "@/utils/schema";
 import { eq } from "drizzle-orm";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function DashboardLayout({ children }) {
+  const [expanded, setExpanded] = useState(true);
   const { user } = useUser();
   const router = useRouter();
   useEffect(() => {
@@ -35,10 +36,14 @@ export default function DashboardLayout({ children }) {
     <div>
       {/* <ClerkProvider> */}
       <SignedIn>
-        <div className="fixed md:w-64 hidden md:block">
-          <SideNav />
+        <div
+          className={`fixed md:block md:${() => setExpanded(flase)} ${
+            !expanded && "w-20"
+          }`}
+        >
+          <SideNav expanded={expanded} setExpanded={setExpanded} />
         </div>
-        <div className="md:ml-64">
+        <div className={`${expanded ? "md:ml-64" : "ml-20"}`}>
           <DashboardHeader />
           {children}
         </div>
