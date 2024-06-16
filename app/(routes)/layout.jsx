@@ -53,22 +53,22 @@ export default function DashboardLayout({ children }) {
   return (
     <div>
       {/* <ClerkProvider> */}
-      <SignedIn>
-        <div
-          className={`fixed md:block md:${() => setExpanded(flase)} ${
-            !expanded && "w-20"
-          }`}
-        >
-          <SideNav expanded={expanded} setExpanded={setExpanded} />
-        </div>
-        <div className={`${expanded ? "md:ml-64" : "ml-20"}`}>
-          <DashboardHeader />
-          {children}
-        </div>
-      </SignedIn>
-      <SignedOut>
+      {/* <SignedIn> */}
+      <div
+        className={`fixed md:block md:${() => setExpanded(flase)} ${
+          !expanded && "w-20"
+        }`}
+      >
+        <SideNav expanded={expanded} setExpanded={setExpanded} />
+      </div>
+      <div className={`${expanded ? "md:ml-64" : "ml-20"}`}>
+        <DashboardHeader />
+        {children}
+      </div>
+      {/* </SignedIn> */}
+      {/* <SignedOut>
         <RedirectToSignIn />
-      </SignedOut>
+      </SignedOut> */}
       {/* </ClerkProvider> */}
     </div>
   );
