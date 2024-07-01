@@ -13,16 +13,18 @@ const Upgrade = () => {
             </h2>
 
             <p className="mt-2 text-gray-700">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Free to use | We will add the pro plan's later in future
             </p>
 
             <p className="mt-2 sm:mt-4">
               <strong className="text-3xl font-bold text-gray-900 sm:text-4xl">
                 {" "}
-                20${" "}
+                Free{" "}
               </strong>
 
-              <span className="text-sm font-medium text-gray-700">/month</span>
+              <span className="text-sm font-medium text-gray-700">
+                /unlimited
+              </span>
             </p>
 
             <a
@@ -157,7 +159,7 @@ const Upgrade = () => {
         </div>
 
         {/* Pro Section */}
-        <div className="divide-y divide-gray-200 rounded-2xl border border-gray-200 shadow-sm  hover:shadow-slate-900 hover:shadow-2xl hover:ring-1 hover:border-indigo-600 hover:ring-indigo-600 hover:rounded-3xl">
+        {/* <div className="divide-y divide-gray-200 rounded-2xl border border-gray-200 shadow-sm  hover:shadow-slate-900 hover:shadow-2xl hover:ring-1 hover:border-indigo-600 hover:ring-indigo-600 hover:rounded-3xl">
           <div className="p-6 sm:px-8">
             <h2 className="text-lg font-medium text-gray-900">
               Pro
@@ -306,10 +308,10 @@ const Upgrade = () => {
               </li>
             </ul>
           </div>
-        </div>
+        </div> */}
 
         {/* EnterPrise Section */}
-        <div className="divide-y divide-gray-200 rounded-2xl border border-gray-200 shadow-sm  hover:shadow-slate-900 hover:shadow-2xl hover:ring-1 hover:border-indigo-600 hover:ring-indigo-600 hover:rounded-3xl">
+        {/* <div className="divide-y divide-gray-200 rounded-2xl border border-gray-200 shadow-sm  hover:shadow-slate-900 hover:shadow-2xl hover:ring-1 hover:border-indigo-600 hover:ring-indigo-600 hover:rounded-3xl">
           <div className="p-6 sm:px-8">
             <h2 className="text-lg font-medium text-gray-900">
               Enterprise
@@ -458,7 +460,7 @@ const Upgrade = () => {
               </li>
             </ul>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
