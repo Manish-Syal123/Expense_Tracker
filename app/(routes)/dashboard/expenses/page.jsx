@@ -101,7 +101,7 @@ const MyExpenses = () => {
     <div className="mb-8">
       <h2 className="font-bold text-3xl">My All Expenses</h2>
       {/* Filter based on year or year & month */}
-      <div className="flex justify-end gap-4 items-center">
+      <div className="md:flex justify-end sm:grid gap-4 items-center">
         <div className="mt-4">
           <DatePicker
             selected={selectedYear ? new Date(selectedYear, 0) : null}

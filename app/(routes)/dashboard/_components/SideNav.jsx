@@ -63,7 +63,9 @@ const SideNav = ({ expanded, setExpanded }) => {
         className="overflow-hidden transition-all"
       />
       <div
-        className={`${isHovered ? "flex justify-end items-center" : "hidden"}`}
+        className={`${
+          isHovered ? "flex justify-center items-center" : "hidden"
+        }`}
       >
         <button
           onClick={() => setExpanded((curr) => !curr)}
