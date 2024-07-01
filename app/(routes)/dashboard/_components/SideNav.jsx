@@ -14,6 +14,8 @@ import { UserButton } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 const SideNav = ({ expanded, setExpanded }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   const menuList = [
     {
       id: 1,
@@ -48,7 +50,11 @@ const SideNav = ({ expanded, setExpanded }) => {
   }, [path]);
 
   return (
-    <div className="h-screen p-5 border shadow-sm">
+    <div
+      className="h-screen p-5 border shadow-sm"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <Image
         src={"/logo3-removebg.png"}
         alt="logo"
@@ -59,7 +65,9 @@ const SideNav = ({ expanded, setExpanded }) => {
       <div className="flex justify-end items-center">
         <button
           onClick={() => setExpanded((curr) => !curr)}
-          className="p-1.5 sm:hidden lg:block rounded-lg bg-gray-50 hover:bg-gray-100"
+          className={`p-1.5 sm:hidden lg:block rounded-lg bg-gray-50 hover:bg-gray-100 transition-opacity ${
+            isHovered ? "opacity-100" : "opacity-0"
+          }`}
         >
           {expanded ? <ChevronFirst /> : <ChevronLast />}
         </button>
