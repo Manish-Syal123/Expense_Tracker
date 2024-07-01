@@ -56,12 +56,14 @@ const SideNav = ({ expanded, setExpanded }) => {
         height={200}
         className="overflow-hidden transition-all"
       />
-      <button
-        onClick={() => setExpanded((curr) => !curr)}
-        className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
-      >
-        {expanded ? <ChevronFirst /> : <ChevronLast />}
-      </button>
+      <div className="flex justify-end items-center">
+        <button
+          onClick={() => setExpanded((curr) => !curr)}
+          className="p-1.5 sm:hidden lg:block rounded-lg bg-gray-50 hover:bg-gray-100"
+        >
+          {expanded ? <ChevronFirst /> : <ChevronLast />}
+        </button>
+      </div>
       <div className="mt-5">
         {menuList.map((menu, index) => (
           <Link href={menu.path} key={index}>
