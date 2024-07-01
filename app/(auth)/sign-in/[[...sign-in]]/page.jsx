@@ -13,7 +13,7 @@ export default function Page() {
 
           <div className="hidden lg:relative lg:block lg:p-12">
             <a className="block text-white" href="#">
-              <span className="sr-only">Home</span>
+              <span className="sr-only">Sign IN</span>
               <svg
                 className="h-8 sm:h-10"
                 viewBox="0 0 28 24"
@@ -28,12 +28,12 @@ export default function Page() {
             </a>
 
             <h2 className="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
-              Welcome to Squid 🦑
+              Welcome to Expense Tracker 🦑
             </h2>
 
             <p className="mt-4 leading-relaxed text-white/90">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi
-              nam dolorum aliquam, quibusdam aperiam voluptatum.
+              Start Creating your budget and save ton's of money. We are here to
+              manage your money effeciently.
             </p>
           </div>
         </section>
@@ -45,7 +45,7 @@ export default function Page() {
                 className="inline-flex size-16 items-center justify-center rounded-full bg-white text-blue-600 sm:size-20"
                 href="#"
               >
-                <span className="sr-only">Home</span>
+                <span className="sr-only">Sign IN</span>
                 <svg
                   className="h-8 sm:h-10"
                   viewBox="0 0 28 24"
@@ -60,12 +60,12 @@ export default function Page() {
               </a>
 
               <h1 className="mt-2 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-                Welcome to Squid 🦑
+                Welcome to Expense Tracker 🦑
               </h1>
 
               <p className="mt-4 leading-relaxed text-gray-500">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
+                Start Creating your budget and save ton's of money. We are here
+                to manage your money effeciently.
               </p>
             </div>
             <SignIn />
