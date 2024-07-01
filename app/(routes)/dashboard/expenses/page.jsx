@@ -12,6 +12,7 @@ const MyExpenses = () => {
   const [expensesList, setExpenseslist] = useState([]);
   const [filteredExpensesList, setFilteredExpensesList] = useState([]);
   const [selectedYear, setSelectedYear] = useState(null);
+  const [selectedYearMonth, setSelectedYearMonth] = useState(null);
   const { user } = useUser();
 
   useEffect(() => {
@@ -19,15 +20,8 @@ const MyExpenses = () => {
   }, [user]);
 
   useEffect(() => {
-    if (selectedYear !== null) {
-      const filtered = expensesList.filter(
-        (expense) => new Date(expense.createdAt).getFullYear() === selectedYear
-      );
-      setFilteredExpensesList(filtered);
-    } else {
-      setFilteredExpensesList(expensesList);
-    }
-  }, [expensesList, selectedYear]);
+    filterExpenses();
+  }, [expensesList, selectedYear, selectedYearMonth]);
 
   // Getting all the expenses of the current logged In user
   const getAllExpenses = async () => {
@@ -43,37 +37,105 @@ const MyExpenses = () => {
       .where(eq(Budgets.createdBy, user?.primaryEmailAddress?.emailAddress))
       .orderBy(desc(Expenses.id));
 
-    setExpenseslist(result);
+    // Parse database date format (assuming DD/MM/YYYY)
+    const parsedExpenses = result.map((expense) => ({
+      ...expense,
+      createdAt: parseDatabaseDate(expense.createdAt),
+    }));
+
+    setExpenseslist(parsedExpenses);
   };
 
+  // Function to parse database date format (DD/MM/YYYY) to Date object
+  const parseDatabaseDate = (dateString) => {
+    const parts = dateString.split("/");
+    return new Date(parts[2], parts[1] - 1, parts[0]); // year, month (0-based), day
+  };
+
+  // Filter expenses based on selected year and month
+  const filterExpenses = () => {
+    console.log("Selected Year:", selectedYear);
+    console.log("Selected YearMonth:", selectedYearMonth);
+    console.log("Expenses List:", expensesList);
+
+    if (selectedYearMonth instanceof Date && !isNaN(selectedYearMonth)) {
+      const filtered = expensesList.filter((expense) => {
+        const expenseDate = new Date(expense.createdAt);
+        console.log("Expense Date:", expenseDate);
+        return (
+          expenseDate.getFullYear() === selectedYearMonth.getFullYear() &&
+          expenseDate.getMonth() === selectedYearMonth.getMonth()
+        );
+      });
+      console.log("Filtered by YearMonth:", filtered);
+      setFilteredExpensesList(filtered);
+    } else if (selectedYear !== null) {
+      const filtered = expensesList.filter(
+        (expense) => new Date(expense.createdAt).getFullYear() === selectedYear
+      );
+      console.log("Filtered by Year:", filtered);
+      setFilteredExpensesList(filtered);
+    } else {
+      console.log("No filter applied, using all expenses");
+      setFilteredExpensesList(expensesList);
+    }
+  };
+
+  // Handle change when selecting year and month
+  const handleYearMonthChange = (date) => {
+    setSelectedYearMonth(date);
+    setSelectedYear(null); // Reset year selection when month changes
+  };
+
+  // Handle change when selecting year only
   const handleYearChange = (date) => {
     if (date) {
       setSelectedYear(date.getFullYear());
     } else {
       setSelectedYear(null);
     }
+    setSelectedYearMonth(null); // Reset month selection when year changes
   };
 
   return (
-    <div>
+    <div className="mb-8">
       <h2 className="font-bold text-3xl">My All Expenses</h2>
-      <div className="mt-4">
-        <DatePicker
-          selected={selectedYear ? new Date(selectedYear, 0) : null}
-          onChange={handleYearChange}
-          showYearPicker
-          dateFormat="yyyy"
-          className="border p-2"
-          placeholderText="Select Year"
-          showPopperArrow={false}
-          customInput={<input type="text" className="border p-2" readOnly />}
-          isClearable
-        />
+      {/* Filter based on year or year & month */}
+      <div className="flex justify-end gap-4 items-center">
+        <div className="mt-4">
+          <DatePicker
+            selected={selectedYear ? new Date(selectedYear, 0) : null}
+            onChange={handleYearChange}
+            showYearPicker
+            dateFormat="yyyy"
+            className="border p-2"
+            placeholderText="Select Year"
+            showPopperArrow={false}
+            customInput={<input type="text" className="border p-2" readOnly />}
+            isClearable
+            disabled={selectedYearMonth !== null}
+          />
+        </div>
+        <h3>OR</h3>
+        <div className="mt-4">
+          <DatePicker
+            selected={selectedYearMonth}
+            onChange={handleYearMonthChange}
+            showMonthYearPicker
+            dateFormat="MM/yyyy"
+            className="border p-2"
+            placeholderText="Select Month and Year"
+            showPopperArrow={false}
+            customInput={<input type="text" className="border p-2" readOnly />}
+            isClearable
+          />
+        </div>
       </div>
+
       <div className="mt-11">
         <ExpenseListTable
           expensesList={filteredExpensesList}
-          refreshData={() => getAllExpenses()}
+          refreshData={getAllExpenses} // Refresh data callback
         />
       </div>
     </div>
